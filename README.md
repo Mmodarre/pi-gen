@@ -292,16 +292,16 @@ maintenance and allows for more easy customization.
    here's where you start trimming.
   
 
- - **Stage 3** NOT USED IN THIS REPO **SKIP FILE ADDED TO DIRECTORY** - desktop system.  Here's where you get the full desktop system
+ - ~~**Stage 3**~~ NOT USED IN THIS REPO **SKIP FILE ADDED TO DIRECTORY** - desktop system.  Here's where you get the full desktop system
    with X11 and LXDE, web browsers, git for development, Raspbian custom UI
    enhancements, etc.  This is a base desktop system, with some development
    tools installed.
 
- - **Stage 4** NOT USED IN THIS REPO **SKIP FILE ADDED TO DIRECTORY**- Normal Raspbian image. System meant to fit on a 4GB card. This is the
+ - ~~**Stage 4**~~ NOT USED IN THIS REPO **SKIP FILE ADDED TO DIRECTORY**- Normal Raspbian image. System meant to fit on a 4GB card. This is the
    stage that installs most things that make Raspbian friendly to new
    users like system documentation.
 
- - **Stage 5** NOT USED IN THIS REPO **SKIP FILE ADDED TO DIRECTORY**- The Raspbian Full image. More development
+ - ~~**Stage 5**~~ NOT USED IN THIS REPO **SKIP FILE ADDED TO DIRECTORY**- The Raspbian Full image. More development
    tools, an email client, learning tools like Scratch, specialized packages
    like sonic-pi, office productivity, etc.  
 
