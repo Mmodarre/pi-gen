@@ -11,16 +11,23 @@ install -m 644 files/console-setup   	"${ROOTFS_DIR}/etc/default/"
 
 install -m 755 files/rc.local		"${ROOTFS_DIR}/etc/"
 
+install -m 644 files/hostnamesetter.service	"${ROOTFS_DIR}/etc/systemd/system/"
+
+install -m 755 files/set-hostname.sh	"${ROOTFS_DIR}/usr/local/bin/"
+
 on_chroot << EOF
 systemctl disable hwclock.sh
 systemctl disable nfs-common
 systemctl disable rpcbind
+systemctl enable  hostnamesetter
 if [ "${ENABLE_SSH}" == "1" ]; then
 	systemctl enable ssh
 else
 	systemctl disable ssh
 fi
 systemctl enable regenerate_ssh_host_keys
+
+
 EOF
 
 if [ "${USE_QEMU}" = "1" ]; then
@@ -51,6 +58,13 @@ EOF
 
 on_chroot << EOF
 usermod --pass='*' root
+EOF
+
+
+on_chroot << EOF
+curl -k https://packages.microsoft.com/config/debian/stretch/multiarch/prod.list > /etc/apt/sources.list.d/microsoft-prod.list
+curl -k https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/microsoft.gpg
+apt-get update
 EOF
 
 rm -f "${ROOTFS_DIR}/etc/ssh/"ssh_host_*_key*
