@@ -7,11 +7,11 @@ _Tool used to create the raspberrypi.org Raspbian images with Azure IoT Edge emb
 This repo modified the original repo to:
 1. Enable SSH 
 1. Changed first Username to `EdgeUser` and password `Azure`
-1. Set WiFi SSID to `mehdi` and Password to `Azure1234567`
+1. Set WiFi SSID to `EdgeAP` and Password to `Azure1234567`
 1. SKIP file added to Stages 3 to 5 to only build Raspbian Lite image
 1. If you build directly using `build.sh` on a 64bit system the resulting 
    Raspbian Buster image will have issues with CA certificates (There is 
-   currently an issue open on this in the original repo).
+   currently an issue open on this in the original repo See https://github.com/RPi-Distro/pi-gen/issues/271).
    As such I recommend either using the Docker build approach or use a 32bit VM for build.
 
 
@@ -41,7 +41,7 @@ environment variables.
 
 The following environment variables are supported:
 
- * `IMG_NAME` **required** (Default: unset)
+ * `IMG_NAME` **required** (Default: AzureEdgePi)
 
    The name of the image to build with the current stage directories.  Setting
    `IMG_NAME=Raspbian` is logical for an unmodified RPi-Distro/pi-gen build,
@@ -94,7 +94,7 @@ The following environment variables are supported:
 
    Default system locale.
 
- * `HOSTNAME` (Default: "raspberrypi" )
+ * `HOSTNAME` (Default: "raspberrypi" ) -- Capability removed - EdgePI sets hostname to RPI serial number for uniquness
 
    Setting the hostname to the specified value.
 
@@ -121,19 +121,19 @@ The following environment variables are supported:
    To get the current value from a running system, look in
    `/etc/timezone`.
 
- * `FIRST_USER_NAME` (Default: "pi" )
+ * `FIRST_USER_NAME` (Default: "edgeuser" )
 
    Username for the first user
 
- * `FIRST_USER_PASS` (Default: "raspberry")
+ * `FIRST_USER_PASS` (Default: "Azure")
 
    Password for the first user
 
- * `WPA_ESSID`, `WPA_PASSWORD` and `WPA_COUNTRY` (Default: unset)
+ * `WPA_ESSID`, `WPA_PASSWORD` and `WPA_COUNTRY` (Default: EdgeAP, Azure1234567, au)
 
    If these are set, they are use to configure `wpa_supplicant.conf`, so that the Raspberry Pi can automatically connect to a wifi network on first boot. If `WPA_ESSID` is set and `WPA_PASSWORD` is unset an unprotected wifi network will be configured. If set, `WPA_PASSWORD` must be between 8 and 63 characters.
 
- * `ENABLE_SSH` (Default: `0`)
+ * `ENABLE_SSH` (Default: `1`)
 
    Setting to `1` will enable ssh server for remote log in. Note that if you are using a common password such as the defaults there is a high risk of attackers taking over you Raspberry Pi.
 
