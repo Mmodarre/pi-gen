@@ -2,8 +2,8 @@
 ## Azure IoT Edge image for Raspberry PI
 _Tool used to create the raspberrypi.org Raspbian images with Azure IoT Edge embedded in the image_
 
-### Compiled Image also available for Download see image_2020-01-20-AzureEdgePi-lite.zip 
-
+### Compiled Image ready to download and burn into SD-card:
+COMING SOON
 
 ### Note: Update the `config` file to adjust below changes accordingly
 This repo modified the original repo to:
