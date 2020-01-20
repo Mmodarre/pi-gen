@@ -32,11 +32,5 @@ echo 1 > "${ROOTFS_DIR}/var/lib/systemd/rfkill/platform-fe300000.mmc:wlan"
 
 on_chroot <<EOF
 apt-get update
-#apt-get install -y --reinstall ca-certificates
-#apt install -y apt-transport-https ca-certificates curl software-properties-common
-#update-ca-certificates
-#add-apt-repository "deb [arch=armhf] https://download.docker.com/linux/debian  $(lsb_release -cs) stable"
-#apt-get update
-#apt-get install docker-ce docker-ce-cli containerd.io
 usermod ${FIRST_USER_NAME} -aG docker
 EOF
