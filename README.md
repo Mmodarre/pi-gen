@@ -1,6 +1,18 @@
-# pi-gen
+# pi-gen for Azure IoT Edge
+## Azure IoT Edge image for Raspberry PI
+_Tool used to create the raspberrypi.org Raspbian images with Azure IoT Edge embedded in the image_
 
-_Tool used to create the raspberrypi.org Raspbian images_
+
+### Note: Update the `config` file to adjust below changes accordingly
+This repo modified the original repo to:
+1. Enable SSH 
+1. Changed first Username to `EdgeUser` and password `Azure`
+1. Set WiFi SSID to `mehdi` and Password to `Azure1234567`
+1. SKIP file added to Stages 3 to 5 to only build Raspbian Lite image
+1. If you build directly using `build.sh` on a 64bit system the resulting 
+   Raspbian Buster image will have issues with CA certificates (There is 
+   currently an issue open on this in the original repo).
+   As such I recommend either using the Docker build approach or use a 32bit VM for build.
 
 
 ## Dependencies
@@ -257,12 +269,17 @@ maintenance and allows for more easy customization.
    really usable yet in a traditional sense yet.  Still, if you want minimal,
    this is minimal and the rest you could reasonably do yourself as sysadmin.
 
- - **Stage 2** - lite system.  This stage produces the Raspbian-Lite image.  It
-   installs some optimized memory functions, sets timezone and charmap
-   defaults, installs fake-hwclock and ntp, wifi and bluetooth support,
-   dphys-swapfile, and other basics for managing the hardware.  It also
-   creates necessary groups and gives the pi user access to sudo and the
-   standard console hardware permission groups.
+ - **Stage 2 Modified Stage for Adding Azure IoT Edge** - lite system.  
+   This stage produces the Raspbian-Lite image with Docker runtime and
+   Azure IoT Edge modules Added to it.  It installs some optimized memory
+   functions, sets timezone and charmap defaults, installs fake-hwclock and 
+   ntp, wifi and bluetooth support,dphys-swapfile, and other basics for 
+   managing the hardware.  It also creates necessary groups and gives the 
+   pi user access to sudo and the standard console hardware permission groups.
+   
+   Substages 01-sys-tweaks, 02-net-tweaks and 03-accept-mathematica-eula has been
+   modified to install docker.io and docker-compose, add Microsoft Azure repositorie
+   and finally install Azure IoT edge.
 
    There are a few tools that may not make a whole lot of sense here for
    development purposes on a minimal system such as basic Python and Lua
@@ -271,17 +288,18 @@ maintenance and allows for more easy customization.
    pi-gen.  These are understandable for Raspbian's target audience, but if
    you were looking for something between truly minimal and Raspbian-Lite,
    here's where you start trimming.
+  
 
- - **Stage 3** - desktop system.  Here's where you get the full desktop system
+ - **Stage 3** NOT USED IN THIS REPO **SKIP FILE ADDED TO DIRECTORY** - desktop system.  Here's where you get the full desktop system
    with X11 and LXDE, web browsers, git for development, Raspbian custom UI
    enhancements, etc.  This is a base desktop system, with some development
    tools installed.
 
- - **Stage 4** - Normal Raspbian image. System meant to fit on a 4GB card. This is the
+ - **Stage 4** NOT USED IN THIS REPO **SKIP FILE ADDED TO DIRECTORY**- Normal Raspbian image. System meant to fit on a 4GB card. This is the
    stage that installs most things that make Raspbian friendly to new
    users like system documentation.
 
- - **Stage 5** - The Raspbian Full image. More development
+ - **Stage 5** NOT USED IN THIS REPO **SKIP FILE ADDED TO DIRECTORY**- The Raspbian Full image. More development
    tools, an email client, learning tools like Scratch, specialized packages
    like sonic-pi, office productivity, etc.  
 
